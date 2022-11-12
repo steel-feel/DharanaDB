@@ -1,0 +1,20 @@
+[package]
+name = "dharanadb"
+version = "0.1.0"
+edition = "2021"
+authors = ["Himank Jain <himankjain@yahoo.in>"]
+
+[dependencies]
+bincode = "1"
+byteorder = "1"
+crc = "1"
+serde = "1"
+serde_derive = "1"
+
+[lib]
+name = "libdharnadb"
+path = "src/lib.rs"
+
+[[bin]]
+name = "dharanadb"
+path = "src/dharana.rs"

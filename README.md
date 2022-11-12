@@ -1,6 +1,7 @@
 # DharanaDB
-_Dharana_ is a sanskrit word, means **Retention**
-DharanaDB is key-value durable database inspired from ActionKV database.
+_Dharana_ is a sanskrit word, means **Retention**.
+
+Key-value durable database inspired from ActionKV database.
 
 ## Installation
 

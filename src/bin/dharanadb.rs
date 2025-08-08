@@ -1,4 +1,5 @@
 use clap::{Parser, Subcommand};
+use lib_dharnadb::DharanaStore;
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -20,18 +21,23 @@ enum Commands {
 
 fn main() {
     let cli = Cli::parse();
-
+    let mut store = DharanaStore::new();
     // You can check for the existence of subcommands, and if found use their
     // matches just as you would the top level cmd
     match &cli.command {
         Commands::Set { key, value } => {
             println!("Setting the {} for {} . . . .", value, key);
+            store.set(key.to_owned(), value.to_owned());
         },
         Commands::Get { key } => {
-              println!("Fetching value for {key}");
+            let val = store.get(key.to_owned()).unwrap();
+              println!(" {key} : {val} ");
+            
+
         },
         Commands::Remove { key } => {
             println!("Removing key : {key}");
+            store.remove(key.to_owned());
         }
 
     }

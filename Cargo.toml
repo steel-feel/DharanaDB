@@ -5,16 +5,18 @@ edition = "2021"
 authors = ["Himank Jain <himankjain@yahoo.in>"]
 
 [dependencies]
-bincode = "1"
-byteorder = "1"
-crc = "1"
+clap = { version = "4.5.43", features = ["derive"] }
 serde = "1"
 serde_derive = "1"
 
 [lib]
-name = "libdharnadb"
-path = "src/libdharana.rs"
+name = "lib_dharnadb"
+path = "src/lib.rs"
 
 [[bin]]
 name = "dharanadb"
-path = "src/dharana.rs"
+path = "src/bin/dharanadb.rs"
+
+[dev-dependencies]
+assert_cmd = "0.11.0"
+predicates = "1.0.0"

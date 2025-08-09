@@ -1,7 +1,7 @@
 use thiserror::Error;
 
 #[derive(Debug, Error)]
-pub enum DharanaError {
+pub enum Error {
     #[error("Failed to read file: {0}")]
     IoError(#[from] std::io::Error),
 
@@ -18,4 +18,4 @@ pub enum DharanaError {
 
 
 /// Result type for kvs.
-pub type SingleResult<T> = std::result::Result<T, DharanaError>;
+pub type SingleResult<T> = std::result::Result<T, Error>;

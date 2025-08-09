@@ -4,7 +4,7 @@ use std::{collections::HashMap, fs::File};
 use serde_derive::{Deserialize, Serialize};
 use std::io::BufRead;
 
-use crate::errors::{DharanaError, SingleResult};
+use crate::errors::{Error, SingleResult};
 
 pub struct DharanaStore {
     map: HashMap<String, String>,
@@ -32,7 +32,7 @@ struct Log {
 }
 
 impl DharanaStore {
-    pub fn new() -> Result<DharanaStore, DharanaError> {
+    pub fn new() -> Result<DharanaStore, Error> {
         let file = File::options()
             .create(true)
             .append(true)
@@ -52,7 +52,7 @@ impl DharanaStore {
         Ok(obj)
     }
 
-    fn read(&mut self) -> Result<bool, DharanaError> {
+    fn read(&mut self) -> Result<bool, Error> {
         let file = File::options()
             .create(true)
             .write(true)
@@ -80,7 +80,7 @@ impl DharanaStore {
         Ok(true)
     }
 
-    fn write(&mut self, command: CommandType) -> Result<bool, DharanaError> {
+    fn write(&mut self, command: CommandType) -> Result<bool, Error> {
         let j = serde_json::to_string(&command)?;
 
         writeln!(self.file, "{}", j)?;
@@ -91,7 +91,7 @@ impl DharanaStore {
     /// Sets the value of a string key to a string.
     ///
     /// If the key already exists, the previous value will be overwritten.
-    pub fn set(&mut self, key: String, value: String) -> Result<bool, DharanaError> {
+    pub fn set(&mut self, key: String, value: String) -> Result<bool, Error> {
         self.map.insert(key.clone(), value.clone());
         let command = CommandType::Set { key, value };
         self.write(command)?;
@@ -109,7 +109,7 @@ impl DharanaStore {
     }
 
     /// Remove a given key.
-    pub fn remove(&mut self, key: String) -> Result<bool, DharanaError> {
+    pub fn remove(&mut self, key: String) -> Result<bool, Error> {
         self.map.remove(&key);
 
         self.write(CommandType::Remove { key: key })?;

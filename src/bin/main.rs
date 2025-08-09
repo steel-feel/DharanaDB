@@ -1,5 +1,5 @@
 use clap::{Parser, Subcommand};
-use lib_dharnadb::DharanaStore;
+use lib_dharnadb::{dharanadb::DharanaStore, errors::{SingleResult}};
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -19,31 +19,30 @@ enum Commands {
     Remove {key : String},
 }
 
-fn main() {
+fn main() -> SingleResult<()> {
     let cli = Cli::parse();
     let mut store = DharanaStore::new().unwrap();
     // You can check for the existence of subcommands, and if found use their
     // matches just as you would the top level cmd
     match &cli.command {
         Commands::Set { key, value } => {
-            println!("Setting the {} for {} . . . .", value, key);
-            store.set(key.to_owned(), value.to_owned());
+            store.set(key.to_owned(), value.to_owned())?;
+             println!("✅ Key: {key} ");
         },
         Commands::Get { key } => {
-            let getOpt = store.get(key.to_owned());
+            let get_opt = store.get(key.to_owned())?;
 
-
-            match  getOpt {
-                Some(val) =>  println!(" {key} : {val} "),
-                None => println!("Value not found for {key}")
+            match get_opt {
+                Some(val) =>  println!("📄 {key} : {val} "),
+                None => println!("❌ Key: {key} NOT FOUND")
             }
-
-             
         },
         Commands::Remove { key } => {
-            println!("Removing key : {key}");
-            store.remove(key.to_owned());
+         
+            store.remove(key.to_owned())?;
+               println!("🌋   Key: {key} ");
         }
 
     }
+    Ok(())
 }

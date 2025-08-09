@@ -1,4 +1,6 @@
-{"type":"Set","key":"name","value":"james"}
 {"type":"Set","key":"city","value":"bombay"}
 {"type":"Remove","key":"city"}
 {"type":"Set","key":"city","value":"bombay"}
+{"type":"Remove","key":"city"}
+{"type":"Set","key":"city","value":"tokyo"}
+{"type":"Remove","key":"city"}

@@ -34,7 +34,7 @@ jobs:
         with:
           # (required) Comma-separated list of binary names (non-extension portion of filename) to build and upload.
           # Note that glob pattern is not supported yet.
-          bin: ...
+          bin: dharanadb
           # (optional) Target triple, default is host triple.
           # This is optional but it is recommended that this always be set to
           # clarify which target you are building for if macOS is included in
@@ -44,6 +44,6 @@ jobs:
           # (optional) On which platform to distribute the `.tar.gz` file.
           # [default value: unix]
           # [possible values: all, unix, windows, none]
-          tar: unix
+          tar: all
           # (required) GitHub token for uploading assets to GitHub Releases.
           token: ${{ secrets.PAT_TOKEN }}

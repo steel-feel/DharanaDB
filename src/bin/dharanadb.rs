@@ -21,7 +21,7 @@ enum Commands {
 
 fn main() {
     let cli = Cli::parse();
-    let mut store = DharanaStore::new();
+    let mut store = DharanaStore::new().unwrap();
     // You can check for the existence of subcommands, and if found use their
     // matches just as you would the top level cmd
     match &cli.command {
@@ -30,10 +30,15 @@ fn main() {
             store.set(key.to_owned(), value.to_owned());
         },
         Commands::Get { key } => {
-            let val = store.get(key.to_owned()).unwrap();
-              println!(" {key} : {val} ");
-            
+            let getOpt = store.get(key.to_owned());
 
+
+            match  getOpt {
+                Some(val) =>  println!(" {key} : {val} "),
+                None => println!("Value not found for {key}")
+            }
+
+             
         },
         Commands::Remove { key } => {
             println!("Removing key : {key}");

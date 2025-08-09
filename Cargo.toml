@@ -5,9 +5,11 @@ edition = "2021"
 authors = ["Himank Jain <himankjain@yahoo.in>"]
 
 [dependencies]
+bson = "2.15.0"
 clap = { version = "4.5.43", features = ["derive"] }
 serde = "1"
 serde_derive = "1"
+serde_json = "1.0.142"
 
 [lib]
 name = "lib_dharnadb"
